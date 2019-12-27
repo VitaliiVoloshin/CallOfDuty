@@ -8,7 +8,6 @@ namespace ShooterFeatures
 
     public class GrenadeThrower: MonoBehaviour
     {
-
         public LineRenderer trajectory;
         public GameObject targetArea;
         public float grenadeDamage = 50;
@@ -16,8 +15,9 @@ namespace ShooterFeatures
         public float min_force = 5f;
         public float trajectoryWidth = 0.4f;
 
-        [SerializeField] private int m_trajectoryDetalization;
+        [SerializeField] private int m_trajectoryDetalization = 50;
         [SerializeField] private Sprite grenadeIcon;
+        [SerializeField] private InputController InputController;
 
         private float m_ThrowForce;
         private LineRenderer m_trajectory;
@@ -25,25 +25,23 @@ namespace ShooterFeatures
         private Transform m_Transform;
         private Ray m_cameraRay;
         private RaycastHit m_cameraRayHit;
+        private KeyCode launchButton;
 
         private void Awake()
         {
             m_Transform = gameObject.transform;
-            if (m_trajectoryDetalization <= 0) {
-                m_trajectoryDetalization = 50;
-            }
-
             m_trajectory = Instantiate(trajectory);
             m_targetArea = Instantiate(targetArea);
+            launchButton = InputController.grenadeThrow;
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.G)) {
+            if (Input.GetKeyDown(launchButton)) {
                 m_ThrowForce = 0;
             }
 
-            if (Input.GetKey(KeyCode.G)) {
+            if (Input.GetKey(launchButton)) {
                 ShowForce();
 
                 if (m_targetArea.activeSelf) {
@@ -64,7 +62,7 @@ namespace ShooterFeatures
                 }
             }
 
-            if (Input.GetKeyUp(KeyCode.G)) {
+            if (Input.GetKeyUp(launchButton)) {
                 Launch(CastParabola(m_ThrowForce));
                 HideForce();
 
@@ -151,10 +149,14 @@ namespace ShooterFeatures
                 if (withRaycast) {
                     if (!detectRaycast) {
                         RaycastHit hit;
-                        if (Physics.Raycast(trajectoryPoints[numberOnInstances - instanceCount - 1], transform.forward, out hit, 6f)) {
-                            if (CheckForActiveObject(hit.transform.gameObject)) {
-                                detectRaycast = true;
-                                raycastPoint = trajectoryPoints[numberOnInstances - instanceCount - 1];
+                        if (instanceCount % 5 == 0) {
+                            if (Physics.Raycast(trajectoryPoints[numberOnInstances - instanceCount - 1], transform.forward, out hit, 5f)) {
+                                Debug.DrawRay(trajectoryPoints[numberOnInstances - instanceCount - 1], transform.forward * 5, Color.red);
+                                bool dd = CheckForActiveObject(hit.transform.gameObject);
+                                if (CheckForActiveObject(hit.transform.gameObject)) {
+                                    detectRaycast = true;
+                                    raycastPoint = trajectoryPoints[numberOnInstances - instanceCount - 1];
+                                }
                             }
                         }
                     }
@@ -162,7 +164,6 @@ namespace ShooterFeatures
             }
 
             if (withRaycast) {
-
                 if (detectRaycast) {
                     float lul = Vector3.Distance(transform.position, raycastPoint);
                     Vector3[] redraw = RecastParabola(lul);
@@ -170,18 +171,20 @@ namespace ShooterFeatures
                     m_targetArea.transform.position = redraw[redraw.Length - 1];
                     return redraw;
                 } else {
-                    TrajectorySetup();
+                    
                     m_trajectory.SetPositions(trajectoryPoints);
                     m_targetArea.transform.position = trajectoryPoints[trajectoryPoints.Length - 1];
+                    TrajectorySetup();
                     return trajectoryPoints;
 
                 }
             } else {
-
+                
                 m_trajectory.SetPositions(trajectoryPoints);
                 if (trajectoryPoints.Length == m_trajectoryDetalization) {
                     m_targetArea.transform.position = trajectoryPoints[trajectoryPoints.Length - 1];
                 }
+                TrajectorySetup();
                 return trajectoryPoints;
             }
         }
@@ -192,15 +195,14 @@ namespace ShooterFeatures
             m_trajectory.SetWidth(trajectoryWidth, trajectoryWidth);
         }
 
-
         bool CheckForActiveObject(GameObject unit)
         {
-            if (!unit.GetComponent<Bullet>() &&
-                !unit.GetComponent<ActorController>() &&
-                !unit.GetComponent<Grenade>()) {
-                return true;
-            } else {
+            if (unit.GetComponent<Bullet>() ||
+                unit.GetComponent<ActorController>() ||
+                unit.GetComponent<Grenade>()) {
                 return false;
+            } else {
+                return true;
             }
         }
 

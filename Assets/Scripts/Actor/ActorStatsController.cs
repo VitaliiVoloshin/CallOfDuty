@@ -6,12 +6,12 @@ namespace ShooterFeatures
     public class ActorStatsController: MonoBehaviour
     {
         [SerializeField] private ActorStats stats;
-        public float movementSpeed;
-        public float attackSpeed;
-        public float damageCaused;
-        public float damageTaken;
-        public float health;
-        public float maxHealth;
+        [HideInInspector] public float movementSpeed;
+        [HideInInspector] public float attackSpeed;
+        [HideInInspector] public float damageCaused;
+        [HideInInspector] public float damageTaken;
+        [HideInInspector] public float health;
+        [HideInInspector] public float maxHealth;
 
         private void Awake()
         {

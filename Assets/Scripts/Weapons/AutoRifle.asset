@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: AutoRifle
   m_EditorClassIdentifier: 
   m_Icon: {fileID: 21300000, guid: a24a73b6eefe6e941af824f84243717c, type: 3}
-  m_identificator: 
-  m_shotsPerSecond: 10
-  m_reloadSpeed: 1
-  m_damage: 20
-  m_bulletsPerShoot: 1
-  m_shootingRange: 30
-  m_spreading: 3
-  m_bulletsInMagazine: 30
+  m_Identificator: 1
+  m_ShotsPerSecond: 10
+  m_ReloadSpeed: 2
+  m_Damage: 15
+  m_BulletsPerShoot: 1
+  m_ShootingRange: 30
+  m_Spreading: 4
+  m_BulletsInMagazine: 30

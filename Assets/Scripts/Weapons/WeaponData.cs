@@ -5,95 +5,44 @@ namespace ShooterFeatures
 {
     [CreateAssetMenu(fileName = "New WeaponData", menuName = "Weapon Data", order = 51)]
 
+    
+
     public class WeaponData: ScriptableObject
     {
         [SerializeField]
         private Sprite m_Icon;
         [SerializeField]
-        private string m_identificator;
+        private WeaponType m_Identificator;
         [SerializeField]
-        private int m_shotsPerSecond;
+        private int m_ShotsPerSecond;
         [SerializeField]
-        private float m_reloadSpeed;
+        private float m_ReloadSpeed;
         [SerializeField]
-        private float m_damage;
+        private float m_Damage;
         [SerializeField]
-        private int m_bulletsPerShoot;
+        private int m_BulletsPerShoot;
         [SerializeField]
-        private float m_shootingRange;
+        private float m_ShootingRange;
         [SerializeField]
-        private int m_spreading;
+        private int m_Spreading;
         [SerializeField]
-        private int m_bulletsInMagazine;
-
-        private float m_spreadingDegree;
+        private int m_BulletsInMagazine;
 
         public float spreadingDegree {
             get {
-                return 180 - 2 * Mathf.Rad2Deg * Mathf.Atan(m_shootingRange * 2 / m_spreading);
+                return 180 - 2 * Mathf.Rad2Deg * Mathf.Atan(m_ShootingRange * 2 / m_Spreading);
             }
         }
 
-        public Sprite icon {
-            get {
-                return m_Icon;
-            }
-        }
-        public string Identificator {
-            get {
-                return m_identificator;
-            }
-        }
-
-        public int ShotsPerSecond {
-            get {
-                return m_shotsPerSecond;
-            }
-
-            set {
-                m_shotsPerSecond = value;
-            }
-        }
-
-        public float RealadSpeed {
-            get {
-                return m_reloadSpeed;
-            }
-        }
-
-        public float Damage {
-            get {
-                return m_damage;
-            }
-
-            set {
-                m_damage = value;
-            }
-        }
-
-        public int BulletsPerShoot {
-            get {
-                return m_bulletsPerShoot;
-            }
-        }
-
-        public float ShootingRange {
-            get {
-                return m_shootingRange;
-            }
-        }
-
-        public int Spreading {
-            get {
-                return m_spreading;
-            }
-        }
-
-        public int bulletsInMagazine {
-            get {
-                return m_bulletsInMagazine;
-            }
-        }
+        public Sprite icon => m_Icon;
+        public WeaponType identificator => m_Identificator;
+        public int shotsPerSecond => m_ShotsPerSecond;
+        public float reloadSpeed => m_ReloadSpeed;
+        public float damage => m_Damage;
+        public int bulletsPerShoot => m_BulletsPerShoot;
+        public float shootingRange => m_ShootingRange;
+        public int spreading => m_Spreading;
+        public int bulletsInMagazine => m_BulletsInMagazine;
 
     }
 }

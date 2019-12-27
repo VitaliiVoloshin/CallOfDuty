@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Shotgun
   m_EditorClassIdentifier: 
   m_Icon: {fileID: 21300000, guid: 909cf83b08e32b34da422827d390e4b1, type: 3}
-  m_identificator: 
-  m_shotsPerSecond: 1
-  m_reloadSpeed: 2
-  m_damage: 30
-  m_bulletsPerShoot: 6
-  m_shootingRange: 15
-  m_spreading: 8
-  m_bulletsInMagazine: 6
+  m_Identificator: 0
+  m_ShotsPerSecond: 2
+  m_ReloadSpeed: 2
+  m_Damage: 20
+  m_BulletsPerShoot: 6
+  m_ShootingRange: 15
+  m_Spreading: 7
+  m_BulletsInMagazine: 6

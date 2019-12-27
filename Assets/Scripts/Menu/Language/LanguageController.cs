@@ -31,7 +31,6 @@ namespace ShooterFeatures
                         break;
 
                 }
-
                 m_language = value;
             }
         }

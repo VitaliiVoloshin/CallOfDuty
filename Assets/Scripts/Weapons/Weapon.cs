@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace ShooterFeatures
 {
+    public enum WeaponType
+    {
+        shotgun,
+        autorifle
+    }
+
     public class Weapon: MonoBehaviour
     {
         public Transform shootPoint;
         public ActorController owner;
-        public WeaponData _weaponData;
+        public WeaponStatsController stats;
         public Color bulletColor;
         public float _oneBulletDamage;
 
@@ -22,19 +28,20 @@ namespace ShooterFeatures
         void Start()
         {
             m_KillJournal = BattleGrounObserver.instance;
+            stats = GetComponent<WeaponStatsController>();
             m_ShootLogic.shootPoint = shootPoint;
-            m_CurrentAmmo = _weaponData.bulletsInMagazine;
-            m_Speed = NormilizedShootingSpeed(_weaponData.ShotsPerSecond);
+            m_CurrentAmmo = stats.bulletsInMagazine;
+            m_Speed = NormilizedShootingSpeed(stats.shotsPerSecond);
             m_MaxAmmo = m_CurrentAmmo;
             bulletColor = BulletColorDependsOnOwner();
         }
 
         void AddOwnerStatsToWeapon()
         {
-            _weaponData.Damage *= owner.stats.damageCaused;
-            float convert = _weaponData.ShotsPerSecond;
+            stats.damage *= owner.stats.damageCaused;
+            float convert = stats.shotsPerSecond;
             convert *= owner.stats.attackSpeed;
-            _weaponData.ShotsPerSecond = Mathf.RoundToInt(convert);
+            stats.shotsPerSecond = Mathf.RoundToInt(convert);
         }
 
         float NormilizedShootingSpeed(float speed)
@@ -61,7 +68,7 @@ namespace ShooterFeatures
                 else {
                     m_ShootLogic.shooter = owner;
                     m_ShootLogic.weapon = this;
-                    m_ShootLogic.ShootBullets(_weaponData);
+                    m_ShootLogic.ShootBullets(stats);
                     m_CurrentAmmo--;
                 }
                 m_NextFire = Time.time + m_Speed;

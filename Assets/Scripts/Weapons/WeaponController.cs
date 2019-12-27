@@ -3,13 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace ShooterFeatures
 {
-    public enum Wtype
-    {
-        shotgun,
-        auto,
-        pistol
-    }
-
     public class WeaponController: MonoBehaviour
     {
         private int selectedWeapon = 0;

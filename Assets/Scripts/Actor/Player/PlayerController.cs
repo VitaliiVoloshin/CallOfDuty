@@ -59,11 +59,11 @@ namespace ShooterFeatures
 
         float MovementSpeedDepensOnActiveWeapon()
         {
-            if (m_weaponController.activeWeapon._weaponData.Identificator == "shotgun") {
+            if (m_weaponController.activeWeapon.stats.identificator == WeaponType.autorifle) {
                 return m_MovementSpeedWithAutoRifle;
 
             }
-            if (m_weaponController.activeWeapon._weaponData.Identificator == "rifle") {
+            if (m_weaponController.activeWeapon.stats.identificator == WeaponType.shotgun) {
 
                 return m_MovementSpeedWithShotgun;
             } else return 1f;
