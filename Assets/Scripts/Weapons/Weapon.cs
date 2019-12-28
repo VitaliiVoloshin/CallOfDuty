@@ -59,6 +59,7 @@ namespace ShooterFeatures
 
         public void Shoot()
         {
+            Debug.Log(Time.time + " > " + m_NextFire);
             if (Time.time > m_NextFire) {
                 if (m_IsReloading) return;
                 if (m_CurrentAmmo < 1) {

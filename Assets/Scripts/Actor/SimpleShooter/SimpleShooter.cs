@@ -13,7 +13,7 @@ namespace ShooterFeatures
 
         private void Update()
         {
-            Shoot();
+            //Shoot();
         }
     }
 }

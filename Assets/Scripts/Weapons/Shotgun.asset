@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Icon: {fileID: 21300000, guid: 909cf83b08e32b34da422827d390e4b1, type: 3}
   m_Identificator: 0
-  m_ShotsPerSecond: 2
+  m_ShotsPerSecond: 1
   m_ReloadSpeed: 2
   m_Damage: 20
   m_BulletsPerShoot: 6

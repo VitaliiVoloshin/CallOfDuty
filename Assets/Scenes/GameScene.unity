@@ -1182,6 +1182,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 2ab180fb66ccdb04ba5be3b9cc50f769,
         type: 3}
+    - target: {fileID: 7595149555192429281, guid: 3112dbd4f25eb914b9402989c4d08a76,
+        type: 3}
+      propertyPath: InputController
+      value: 
+      objectReference: {fileID: 11400000, guid: f2d6ae09487d5bf4299ba41e6bc4def8,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3112dbd4f25eb914b9402989c4d08a76, type: 3}
 --- !u!1001 &4750919349723823408
@@ -1300,6 +1306,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750919350983124829, guid: eabc72ef1cc6140449f4041080eb7299,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eabc72ef1cc6140449f4041080eb7299, type: 3}

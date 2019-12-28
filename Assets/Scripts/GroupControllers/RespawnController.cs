@@ -26,17 +26,13 @@ namespace ShooterFeatures
             m_SpawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
         }
 
-        public void RespawnRequest(GameObject unit)
+        public void RespawnRequest(ActorController unit)
         {
+            unit.SelfRespawn();
+        }
 
-            if (unit.GetComponent<PlayerController>()) {
-                respawnUI.SetActive(true);
-                m_Player = unit;
-            } else if (unit.GetComponent<SimpleShooter>()) {
-                RespawnSimpleShooter(unit);
-            } else {
-                Debug.Log("Unit respawn denied");
-            }
+        public void RespawnPlayer() {
+            respawnUI.SetActive(true);
         }
 
         public void RespawnPlayerAtRandomPoint()
@@ -48,16 +44,16 @@ namespace ShooterFeatures
             respawnUI.SetActive(false);
         }
 
-        void RespawnSimpleShooter(GameObject simpleShooter)
+        public void DefaultRespawn(ActorController unit)
         {
-            StartCoroutine(SimpleShooterResurectionProcessStart(5f, simpleShooter));
+            StartCoroutine(SimpleShooterResurectionProcessStart(5f, unit));
         }
 
-        IEnumerator SimpleShooterResurectionProcessStart(float delay, GameObject simpleShooter)
+        IEnumerator SimpleShooterResurectionProcessStart(float delay, ActorController simpleShooter)
         {
             yield return new WaitForSeconds(delay);
-            simpleShooter.GetComponent<ActorController>().stats.health = 100;
-            simpleShooter.SetActive(true);
+            simpleShooter.stats.health = 100;
+            simpleShooter.gameObject.SetActive(true);
         }
 
     }

@@ -8,28 +8,17 @@ namespace ShooterFeatures
         public Transform shootPoint;
         [HideInInspector] public ActorController shooter;
         [HideInInspector] public Weapon weapon;
+        private DirectionRandomizator directionRandomizator = new DirectionRandomizator();
 
         public void ShootBullets(WeaponStatsController weaponData)
         {
             int howmany = weaponData.bulletsPerShoot;
             while (howmany != 0) {
-                Vector3 direction = GetRandomDirection(new Vector2(weaponData.spreadingDegree, weaponData.shootingRange));
+                Vector3 direction = directionRandomizator.GetRandomDirection(shootPoint,new Vector2(weaponData.spreadingDegree, weaponData.shootingRange));
                 BulletInstantiation(direction);
                 SingleBulletEffect(direction, weaponData);
                 howmany--;
             }
-        }
-
-        Vector3 GetRandomDirection(Vector2 direction)
-        {
-            return RandomRayPoint(direction.x, direction.y);
-        }
-
-        Vector3 RandomRayPoint(float spread, float range)
-        {
-            float degree = Random.Range(-spread / 2, spread / 2);
-            Quaternion angle = Quaternion.AngleAxis(degree, new Vector3(0, 1, 0));
-            return angle * shootPoint.forward * range;
         }
 
         void BulletInstantiation(Vector3 direction)
@@ -53,7 +42,7 @@ namespace ShooterFeatures
 
                     ActorController enemy = hit.transform.GetComponent<ActorController>();
                     if (enemy.stats.health - weaponData.damage <= 0) {
-                        enemy.stats.health -= weaponData.damage;
+                        enemy.TakeDamage(weaponData.damage);
                         BattleGrounObserver.instance.AddKill(new KillList { Killer = shooter.nickname, Weapon = weaponData.icon, Victum = enemy.nickname });
                         enemy.Death();
                     } else {

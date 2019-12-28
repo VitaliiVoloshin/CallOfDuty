@@ -9,10 +9,13 @@ namespace ShooterFeatures
 
         private void FixedUpdate()
         {
-            transform.position += Direction * Time.deltaTime * 3;
-            StartCoroutine(SelfDestruction(1.5f));
+            transform.position += Direction * Time.deltaTime * 3;            
         }
 
+        private void OnEnable()
+        {
+            StartCoroutine(SelfDestruction(1.5f));
+        }
 
         private IEnumerator SelfDestruction(float value)
         {

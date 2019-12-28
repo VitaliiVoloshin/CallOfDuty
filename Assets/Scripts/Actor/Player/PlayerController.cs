@@ -33,6 +33,13 @@ namespace ShooterFeatures
             m_horizontalAxis = input.horizontalAxis;
         }
 
+        public override void SelfRespawn() {
+            RespawnController.instance.RespawnPlayer();
+        }
+
+
+
+
         void Update()
         {
             transform.LookAt(RotationToCursor(transform));
@@ -53,8 +60,6 @@ namespace ShooterFeatures
                 TakeDamage(stats.health);
                 Death();
             }
-
-
         }
 
         float MovementSpeedDepensOnActiveWeapon()
